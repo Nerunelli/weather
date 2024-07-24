@@ -1,21 +1,21 @@
-// run from root of project
 const fs = require('fs');
+const path = require('path');
 
-let mainPath = './src/Icon/svg/';
+const mainPath = path.join('src', 'Icons', 'svg');
+const absolutePath = path.resolve(mainPath);
 
-fs.readdir(mainPath, (error, files) => {
+fs.readdir(absolutePath, (error, files) => {
 	if (error) {
 		return console.log(error);
 	}
-	svgFiles = files.filter((file) => file.includes('.svg'));
-
+	svgFiles = files.filter((file) => file.endsWith('.svg'));
 	svgFiles.forEach(convertFileToComponent);
 });
 
 const convertFileToComponent = (file) => {
 	let fileName = file.slice(0, -4);
-	let filePath = `${mainPath}${file}`;
-	let tsxFilePath = `${mainPath}${fileName}.tsx`;
+	let filePath = `${absolutePath}${file}`;
+	let tsxFilePath = `${absolutePath}${fileName}.tsx`;
 
 	fs.readFile(filePath, (error, data) => {
 		if (error) {

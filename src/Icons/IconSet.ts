@@ -112,6 +112,8 @@ import r3_st_mist from './svg/r3_st_mist';
 import s1_mist from './svg/s1_mist';
 import s1_st_mist from './svg/s1_st_mist';
 import s2_mist from './svg/s2_mist';
+import weather_now_day from './svg/weather_now_day';
+import weather_now_night from './svg/weather_now_night';
 
 export enum EIconSet {
 	'C3' = 'c3',
@@ -228,6 +230,8 @@ export enum EIconSet {
 	'S1_MIST' = 's1_mist',
 	'S1_ST_MIST' = 's1_st_mist',
 	'S2_MIST' = 's2_mist',
+	'WEATHER_NOW_DAY' = 'weather_now_day',
+	'WEATHER_NOW_NIGHT' = 'weather_now_night',
 }
 
 export const IconSet = {
@@ -345,4 +349,6 @@ export const IconSet = {
 	[EIconSet.S1_MIST]: s1_mist,
 	[EIconSet.S1_ST_MIST]: s1_st_mist,
 	[EIconSet.S2_MIST]: s2_mist,
+	[EIconSet.WEATHER_NOW_DAY]: weather_now_day,
+	[EIconSet.WEATHER_NOW_NIGHT]: weather_now_night,
 };

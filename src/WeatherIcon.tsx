@@ -12,8 +12,6 @@ export const WeatherIcon: React.FC<Props> = ({
 	width = 70,
 	height = 70,
 }) => {
-	console.log('WeatherIcon', iconName);
-
 	const Icon = getIcon(iconName);
 
 	return <Icon width={width} height={height} />;
