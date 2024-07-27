@@ -24,9 +24,6 @@ export const TodayTab: React.FC<IProps> = ({ data, active }) => {
 			</div>
 			<div>
 				<WeatherIcon iconName={iconName as TIconName} />
-				{data.precip_mm ? (
-					<SecondaryColoredText>{data.precip_mm}</SecondaryColoredText>
-				) : null}
 			</div>
 		</>
 	);

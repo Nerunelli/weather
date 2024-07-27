@@ -10,7 +10,7 @@ import {
 	IWeatherData,
 } from './types';
 import { DateTab } from './Tabs/DateTab';
-import { HourCard } from './HourCard';
+import { HourCard } from './HourlyForecastCard/HourCard';
 import { TodayTab } from './Tabs/TodayTab';
 import { FutureDateTab } from './Tabs/FutureDateTab';
 import { TodayDetailedCard } from './TodayCard/TodayDetailedCard';
@@ -27,7 +27,7 @@ export const WeatherWrapper = () => {
 
 	useEffect(() => {
 		Geolocation.getCurrentPosition(setLocation, console.log);
-	}, [location]);
+	}, []);
 
 	useEffect(() => {
 		console.log(location?.coords);
@@ -94,10 +94,10 @@ export const WeatherWrapper = () => {
 								setFirstVisibleTab(i);
 							}}
 						>
-							{/* <FutureDateTab
+							<FutureDateTab
 								data={data.forecast.forecastday[i]}
 								active={activeTab === i + 1}
-							/> */}
+							/>
 						</DateTab>
 					);
 				})}
@@ -116,7 +116,7 @@ export const WeatherWrapper = () => {
 							astro={data.forecast.forecastday[0].astro}
 						/>
 					)}
-					{/* {tabs[activeTab - 1]?.hour.map((hour, index) => {
+					{tabs[activeTab - 1]?.hour.map((hour, index) => {
 						if (dayjs(hour.time).hour() % 3) {
 							return <></>;
 						}
@@ -127,7 +127,7 @@ export const WeatherWrapper = () => {
 								data={data.forecast.forecastday[activeTab - 1].hour[index]}
 							/>
 						);
-					})} */}
+					})}
 				</div>
 			</div>
 		</div>
