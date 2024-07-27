@@ -1,5 +1,7 @@
+import { WeatherWrapper } from './WeatherWrapper';
+
 function App() {
-	return <div />;
+	return <WeatherWrapper />;
 }
 
 export default App;
