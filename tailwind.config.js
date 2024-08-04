@@ -8,10 +8,10 @@ module.exports = {
 				lightBlue: '#a1d6ff',
 			},
 			backgroundImage: {
-				// night: "url('/public/images/night.png')",
-				// day: "url('/public/images/day.png')",
-				// sunrise: "url('/public/images/sunrise.png')",
-				// sunset: "url('/public/images/sunset.png')",
+				night: "url('/public/images/night.png')",
+				day: "url('/public/images/day.png')",
+				sunrise: "url('/public/images/sunrise.png')",
+				sunset: "url('/public/images/sunset.png')",
 			},
 			colors: {
 				lightBlue: '#09f',
