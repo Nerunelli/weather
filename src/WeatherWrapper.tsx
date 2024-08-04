@@ -9,7 +9,6 @@ import {
   IWeatherData,
 } from './types';
 import { DateTab } from './Tabs/DateTab';
-import { HourCard } from './ForecastCard/HourlyWeather';
 import { TodayTab } from './Tabs/TodayTab';
 import { FutureDateTab } from './Tabs/FutureDateTab';
 import { TodayDetailedCard } from './TodayCard/TodayDetailedCard';
@@ -23,7 +22,7 @@ export const WeatherWrapper = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [tabs, setTabs] = useState<IForecastWeatherData[]>([]);
   const [firstVisibleTab, setFirstVisibleTab] = useState(0);
-  const mockedData = true;
+  const mockedData = false;
 
   useEffect(() => {
     Geolocation.getCurrentPosition(setLocation, console.log);
@@ -34,10 +33,6 @@ export const WeatherWrapper = () => {
     if (mockedData) {
       return;
     }
-
-    // const queryLocation =
-    // 	`${location.coords.latitude},${location.coords.longitude}` ??
-    // 	DEFAULT_LOCATION;
 
     const queryLocation = location?.coords
       ? `${location.coords.latitude},${location.coords.longitude}`
@@ -81,7 +76,7 @@ export const WeatherWrapper = () => {
         >
           <TodayTab data={currentData} active={activeTab === 0} />
         </DateTab>
-        {/* {tabs.map((_el, i) => {
+        {tabs.map((_el, i) => {
           return (
             <DateTab
               key={`date-tab-${i + 1}`}
@@ -100,7 +95,7 @@ export const WeatherWrapper = () => {
               />
             </DateTab>
           );
-        })} */}
+        })}
       </div>
       <div>
         <div
@@ -116,9 +111,9 @@ export const WeatherWrapper = () => {
               astro={data.forecast.forecastday[0].astro}
             />
           )}
-          {/* {tabs[activeTab - 1] && (
+          {tabs[activeTab - 1] && (
             <ForecastDetailedCard data={tabs[activeTab - 1]} />
-          )} */}
+          )}
         </div>
       </div>
     </div>

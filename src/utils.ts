@@ -28,9 +28,9 @@ export const getTemperatureTagDarkerColor = (temperature: string) => {
   ];
 };
 
-// export const getWindTagColor = (wind: string) => {
-//   return WIND_COLORS[wind as keyof typeof WIND_COLORS];
-// };
+export const getWindTagColor = (wind: string) => {
+  return WIND_COLORS[wind as keyof typeof WIND_COLORS];
+};
 
 export const generateHourlyIconName = (data: any): TIconName => {
   const dayOrNight = data?.is_day ? 'D' : 'N';
