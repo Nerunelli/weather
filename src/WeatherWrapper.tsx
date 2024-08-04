@@ -100,8 +100,8 @@ export const WeatherWrapper = () => {
       <div>
         <div
           className={cn(
-            'flex w-full rounded-lg bg-neutral-50 p-4 pb-0',
-            activeTab === 0 && 'rounded-tl-none',
+            'flex w-full rounded-lg bg-neutral-50',
+            activeTab === 0 ? 'rounded-tl-none p-4' : 'p-4 pb-0',
             activeTab === tabs.length && 'rounded-tr-none',
           )}
         >
