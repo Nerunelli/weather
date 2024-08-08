@@ -2,6 +2,8 @@
 build
 node_modules
 
+.husky
+
 # Environment
 .env
 .env.local

@@ -6,8 +6,8 @@ import {
   SUN_DAY_DEGREES,
   DAYS_OF_WEEK,
   MONTH,
-} from '../consts';
-import { ICurrentWeatherData } from '../types';
+} from '../../consts';
+import { ICurrentWeatherData } from '../../types';
 import cn from 'classnames';
 import { TodayDetailedCardFooter } from './TodayDetailedCardFooter';
 import { TodayTemperature } from './TodayTemperature';

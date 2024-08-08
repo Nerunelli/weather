@@ -1,7 +1,7 @@
 import React from 'react';
-import { IconProps } from './Icons/types';
-import { getIcon } from './utils';
-import { EIconSet } from './Icons/IconSet';
+import { IconProps } from './IconSet/types';
+import { getIcon } from '../../utils';
+import { EIconSet } from './IconSet/IconSet';
 
 interface Props extends IconProps {
   iconName: keyof typeof EIconSet;

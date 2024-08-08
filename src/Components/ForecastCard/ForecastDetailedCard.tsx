@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import { getWindTagColor } from '../utils';
-import { IForecastWeatherData } from '../types';
+import { getWindTagColor } from '../../utils';
+import { IForecastWeatherData } from '../../types';
 import { HourCard } from './HourlyWeather';
 import { MainText } from '../Text/MainText';
 import { TemperatureTag } from '../Tags/TemperatureTag';
@@ -20,7 +20,7 @@ export const ForecastDetailedCard: React.FC<IProps> = ({ data }) => {
       <div className="mb-4 flex">
         {data.hour.map((hour, index) => {
           if (dayjs(hour.time).hour() % 3) {
-            return <></>;
+            return;
           }
 
           return <HourCard key={`hourCard-${index}`} data={data.hour[index]} />;
@@ -32,7 +32,7 @@ export const ForecastDetailedCard: React.FC<IProps> = ({ data }) => {
         <div className="flex h-full">
           {data.hour.map((hour, index) => {
             if (dayjs(hour.time).hour() % 3) {
-              return <></>;
+              return;
             }
             const temperature = Math.round(data.hour[index].temp_c);
             return (
@@ -51,7 +51,7 @@ export const ForecastDetailedCard: React.FC<IProps> = ({ data }) => {
         <div className="mt-3 flex h-full">
           {data.hour.map((hour, index) => {
             if (dayjs(hour.time).hour() % 3) {
-              return <></>;
+              return;
             }
             const wind = (data.hour[index].gust_kph / 3.6).toFixed();
 
@@ -75,7 +75,7 @@ export const ForecastDetailedCard: React.FC<IProps> = ({ data }) => {
         <div className="mt-1 flex h-full">
           {data.hour.map((hour, index) => {
             if (dayjs(hour.time).hour() % 3) {
-              return <></>;
+              return;
             }
             const precip =
               data.hour[index].precip_mm +

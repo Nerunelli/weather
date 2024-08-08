@@ -1,4 +1,7 @@
-import { getTemperatureTagColor, getTemperatureTagDarkerColor } from '../utils';
+import {
+  getTemperatureTagColor,
+  getTemperatureTagDarkerColor,
+} from '../../utils';
 
 interface IProps {
   temperature: number;

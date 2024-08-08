@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import dayjs from 'dayjs';
 import { TabTitle } from '../Text/TabTitle';
-import { ICurrentWeatherData } from '../types';
-import { generateDailyIconName, isHoliday } from '../utils';
-import { WeatherIcon } from '../WeatherIcon';
-import { TIconName } from '../Icons/types';
+import { ICurrentWeatherData } from '../../types';
+import { generateTodayIconName } from '../../utils';
+import { WeatherIcon } from '../Icon/WeatherIcon';
+import { TIconName } from '../Icon/IconSet/types';
 import { SecondaryText } from '../Text/SecondaryText';
 import { CurrentTemperatureTag } from '../Tags/CurrentTemperatureTag';
 import cn from 'classnames';
@@ -15,7 +15,7 @@ interface IProps {
 }
 
 export const TodayTab: React.FC<IProps> = ({ data, active }) => {
-  const iconName = useMemo(() => generateDailyIconName(data), [data]);
+  const iconName = useMemo(() => generateTodayIconName(data), [data]);
 
   return (
     <>

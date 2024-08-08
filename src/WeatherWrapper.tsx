@@ -1,80 +1,76 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { DEFAULT_LOCATION, WEATHER_API_FORECAST_URL } from './consts';
-import recievedData from './newData.json';
 import cn from 'classnames';
 import {
   ICurrentWeatherData,
   IForecastWeatherData,
   IWeatherData,
 } from './types';
-import { DateTab } from './Tabs/DateTab';
-import { TodayTab } from './Tabs/TodayTab';
-import { FutureDateTab } from './Tabs/FutureDateTab';
-import { TodayDetailedCard } from './TodayCard/TodayDetailedCard';
-import Geolocation from '@react-native-community/geolocation';
-import { ForecastDetailedCard } from './ForecastCard/ForecastDetailedCard';
+import { DateTab } from './Components/Tabs/DateTab';
+import { TodayTab } from './Components/Tabs/TodayTab';
+import { FutureDateTab } from './Components/Tabs/FutureDateTab';
+import { TodayDetailedCard } from './Components/TodayCard/TodayDetailedCard';
+import { ForecastDetailedCard } from './Components/ForecastCard/ForecastDetailedCard';
 
 export const WeatherWrapper = () => {
   const [location, setLocation] = useState<GeolocationPosition>();
-  const [currentData, setCurrentData] = useState<ICurrentWeatherData>();
-  const [data, setData] = useState<IWeatherData>();
-  const [activeTab, setActiveTab] = useState(0);
+
+  const [currentWeatherData, setCurrentWeatherData] =
+    useState<ICurrentWeatherData>();
+  const [weatherData, setWeatherData] = useState<IWeatherData>();
+  const [isLoading, setIsLoading] = useState(false);
+
   const [tabs, setTabs] = useState<IForecastWeatherData[]>([]);
+  const [activeTab, setActiveTab] = useState(0);
   const [firstVisibleTab, setFirstVisibleTab] = useState(0);
-  const mockedData = false;
 
   useEffect(() => {
-    Geolocation.getCurrentPosition(setLocation, console.log);
+    navigator.geolocation.getCurrentPosition(setLocation, console.error);
   }, []);
 
   useEffect(() => {
-    console.log(location?.coords);
-    if (mockedData) {
-      return;
-    }
-
     const queryLocation = location?.coords
       ? `${location.coords.latitude},${location.coords.longitude}`
       : DEFAULT_LOCATION;
 
     const url = `${WEATHER_API_FORECAST_URL}?key=${process.env.REACT_APP_WEATHER_API_KEY}&q=${queryLocation}&days=14`;
-
-    axios.get(url).then((data: { data: IWeatherData }) => {
-      console.log('data', data);
-      setData(data.data);
-      setCurrentData(data.data.current);
-    });
+    setIsLoading(true);
+    axios
+      .get(url)
+      .then((data: { data: IWeatherData }) => {
+        setWeatherData(data.data);
+        setCurrentWeatherData(data.data.current);
+        setIsLoading(false);
+      })
+      .catch(() => setIsLoading(false));
   }, [location]);
 
   useEffect(() => {
-    if (mockedData) {
-      setData(recievedData.data as IWeatherData);
-      setCurrentData(recievedData.data.current as ICurrentWeatherData);
-    }
-  }, [recievedData]);
-
-  useEffect(() => {
-    if (!data) {
+    if (!weatherData) {
       return;
     }
-    setTabs(data.forecast.forecastday);
-  }, [data]);
+    setTabs(weatherData.forecast.forecastday);
+  }, [weatherData]);
 
-  if (!data || !currentData) {
-    return <div className="mt-14 flex w-full justify-center">Загрузка...</div>;
+  if (!currentWeatherData || !weatherData) {
+    return (
+      <div className="mt-14 flex w-full justify-center">
+        {isLoading ? 'Загрузка...' : 'Ошибка'}
+      </div>
+    );
   }
 
   return (
     <div className="m-4 flex w-min flex-col">
       <div className="flex">
         <DateTab
-          first={true}
+          first
           visible={firstVisibleTab === 0}
           active={activeTab === 0}
           onClick={() => setActiveTab(0)}
         >
-          <TodayTab data={currentData} active={activeTab === 0} />
+          <TodayTab data={currentWeatherData} active={activeTab === 0} />
         </DateTab>
         {tabs.map((_el, i) => {
           return (
@@ -90,7 +86,7 @@ export const WeatherWrapper = () => {
               }}
             >
               <FutureDateTab
-                data={data.forecast.forecastday[i]}
+                data={weatherData.forecast.forecastday[i]}
                 active={activeTab === i + 1}
               />
             </DateTab>
@@ -107,8 +103,8 @@ export const WeatherWrapper = () => {
         >
           {activeTab === 0 && (
             <TodayDetailedCard
-              data={currentData}
-              astro={data.forecast.forecastday[0].astro}
+              data={currentWeatherData}
+              astro={weatherData.forecast.forecastday[0].astro}
             />
           )}
           {tabs[activeTab - 1] && (

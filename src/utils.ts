@@ -1,12 +1,17 @@
 import React from 'react';
-import { EIconSet, IconSet } from './Icons/IconSet';
-import { IconProps, TIconName } from './Icons/types';
+import { EIconSet, IconSet } from './Components/Icon/IconSet/IconSet';
+import { IconProps, TIconName } from './Components/Icon/IconSet/types';
 import {
   TEMPERATURE_TAG_COLORS,
   TEMPERATURE_TAG_DARKER_COLORS,
   WIND_COLORS,
 } from './consts';
 import { Dayjs } from 'dayjs';
+import {
+  ICurrentWeatherData,
+  IForecastWeatherData,
+  IHourWeatherData,
+} from './types';
 
 export const getIcon = (iconName: TIconName): React.FC<IconProps> => {
   return IconSet[EIconSet[iconName]];
@@ -32,7 +37,7 @@ export const getWindTagColor = (wind: string) => {
   return WIND_COLORS[wind as keyof typeof WIND_COLORS];
 };
 
-export const generateHourlyIconName = (data: any): TIconName => {
+export const generateHourlyIconName = (data: IHourWeatherData): TIconName => {
   const dayOrNight = data?.is_day ? 'D' : 'N';
 
   let cloudiness = '';
@@ -103,13 +108,12 @@ export const generateHourlyIconName = (data: any): TIconName => {
   return result as TIconName;
 };
 
-export const generateDailyIconName = (data: any): TIconName => {
+export const generateTodayIconName = (data: ICurrentWeatherData): TIconName => {
   const dayOrNight = !data?.is_day ? 'N' : 'D';
 
   let cloudiness = '';
   let rain = '';
   let storm = '';
-  let snow = '';
   let precipitation = '';
 
   if (!data.cloud) {
@@ -122,11 +126,11 @@ export const generateDailyIconName = (data: any): TIconName => {
     cloudiness = '3';
   }
 
-  if (data.totalprecip_mm === 0) {
+  if (data.precip_mm === 0) {
     rain = '';
-  } else if (data.totalprecip_mm < 1) {
+  } else if (data.precip_mm < 1) {
     rain = '1';
-  } else if (data.totalprecip_mm < 2) {
+  } else if (data.precip_mm < 2) {
     rain = '2';
   } else {
     rain = '3';
@@ -134,16 +138,6 @@ export const generateDailyIconName = (data: any): TIconName => {
 
   if (!cloudiness && rain) {
     cloudiness = rain;
-  }
-
-  if (!data.snow_cm) {
-    snow = '';
-  } else if (data.snow_cm < 1) {
-    snow = '1';
-  } else if (data.snow_cm < 2) {
-    snow = '2';
-  } else {
-    snow = '3';
   }
 
   if (data.gust_kph > 54) {
@@ -161,9 +155,6 @@ export const generateDailyIconName = (data: any): TIconName => {
   if (rain) {
     precipitation = precipitation + 'R';
   }
-  if (snow) {
-    precipitation = precipitation + 'S';
-  }
 
   if (result) {
     result = result + (rain ? '_' + precipitation + rain : '');
@@ -173,6 +164,48 @@ export const generateDailyIconName = (data: any): TIconName => {
 
   if (storm) {
     result = result + '_ST';
+  }
+
+  return result as TIconName;
+};
+
+export const generateFutureDailyIconName = ({
+  day,
+}: IForecastWeatherData): TIconName => {
+  const dayOrNight = 'D';
+
+  let rain = '';
+  let cloudiness = '';
+  let precipitation = '';
+
+  if (day.totalprecip_mm === 0) {
+    rain = '';
+  } else if (day.totalprecip_mm < 1) {
+    rain = '1';
+  } else if (day.totalprecip_mm < 2) {
+    rain = '2';
+  } else {
+    rain = '3';
+  }
+
+  cloudiness = rain;
+
+  let result = cloudiness !== '3' ? dayOrNight : '';
+
+  if (result) {
+    result = result + (cloudiness ? '_C' + cloudiness : '');
+  } else {
+    result = cloudiness ? 'C' + cloudiness : '';
+  }
+
+  if (rain) {
+    precipitation = precipitation + 'R';
+  }
+
+  if (result) {
+    result = result + (rain ? '_' + precipitation + rain : '');
+  } else {
+    result = rain ? precipitation + rain : '';
   }
 
   return result as TIconName;

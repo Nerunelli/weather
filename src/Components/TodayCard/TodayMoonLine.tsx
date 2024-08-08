@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import { WeatherIcon } from '../WeatherIcon';
+import { WeatherIcon } from '../Icon/WeatherIcon';
 
 interface IProps {
   addedMoonDegree: number;

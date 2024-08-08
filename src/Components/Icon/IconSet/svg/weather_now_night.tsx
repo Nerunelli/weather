@@ -7,6 +7,7 @@ const Icon_weather_now_night: React.FC<IconProps> = (props) => (
     width="593"
     height="601"
     viewBox="0 0 593 601"
+    {...props}
   >
     <defs>
       <circle id="a" cx="4.5" cy="4.5" r="4.5" />

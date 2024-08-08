@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { ICurrentWeatherData } from '../types';
+import { ICurrentWeatherData } from '../../types';
 import { TodayExtraInfoCard } from './TodayExtraInfoCard';
 
 interface IProps {

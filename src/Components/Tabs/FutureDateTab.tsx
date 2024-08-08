@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 import dayjs from 'dayjs';
-import { DAYS_OF_WEEK, MONTH } from '../consts';
+import { DAYS_OF_WEEK, MONTH } from '../../consts';
 import { TabTitle } from '../Text/TabTitle';
-import { IForecastWeatherData } from '../types';
-import { generateDailyIconName, isHoliday } from '../utils';
-import { WeatherIcon } from '../WeatherIcon';
-import { TIconName } from '../Icons/types';
+import { IForecastWeatherData } from '../../types';
+import { generateFutureDailyIconName, isHoliday } from '../../utils';
+import { WeatherIcon } from '../Icon/WeatherIcon';
+import { TIconName } from '../Icon/IconSet/types';
 import { SecondaryColoredText } from '../Text/SecondaryColoredText';
 import { SecondaryText } from '../Text/SecondaryText';
 import cn from 'classnames';
@@ -26,7 +26,7 @@ export const FutureDateTab: React.FC<IProps> = ({ data, active }) => {
   const minTemperature = Math.round(data.day.mintemp_c);
   const maxTemperature = Math.round(data.day.maxtemp_c);
 
-  const iconName = useMemo(() => generateDailyIconName(data), [data]);
+  const iconName = useMemo(() => generateFutureDailyIconName(data), [data]);
 
   return (
     <>
